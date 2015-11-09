@@ -1,7 +1,7 @@
 <?php
-// This file is part of Oauth1 plugin for Moodle (http://moodle.org/)
+// This file is part of OauthSimple plugin for Moodle (http://moodle.org/) based in Oauth1 plugin of Marco Cappuccio and    Andrea Bicciolo 
 //
-// Oauth1 plugin is free software: you can redistribute it and/or modify
+// OauthSimple plugin is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
@@ -17,9 +17,8 @@
 /**
  * Oauth1 authentication login
  *
- * @package    auth_oauth1
- * @author     Marco Cappuccio m.cappuccio@mediatouch.it
- * @author     Andrea Bicciolo a.bicciolo@mediatouch.it
+ * @package    auth_oauth_simple
+ * @author     Esdras Caleb Oliveira Silva
  * @copyright  2014 onwards MediaTouch 2000 srl (http://www.mediatouch.it)
  * @copyright  2014 onwards Formez (http://www.formez.it/)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -27,7 +26,7 @@
 
 require_once('twitteroauth/twitteroauth.php');
 
-function auth_oauth1_display_buttons() {
+function auth_oauth_simple_display_buttons() {
     global $CFG;
 
     $cfg = get_config('auth/oauth1');
@@ -37,7 +36,7 @@ function auth_oauth1_display_buttons() {
     $CFG->wwwroot.'/auth/oauth1/pix/oauth.png" alt="Accedi a Formez"/></a>';
 }
 
-function auth_oauth1_callbackurl() {
+function auth_oauth_simple_callbackurl() {
     global $CFG;
     return $CFG->wwwroot.'/auth/oauth1/callback.php';
 }

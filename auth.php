@@ -1,7 +1,7 @@
 <?php
-// This file is part of Oauth1 plugin for Moodle (http://moodle.org/)
+// This file is part of OauthSimple plugin for Moodle (http://moodle.org/) based in Oauth1 plugin of Marco Cappuccio and    Andrea Bicciolo 
 //
-// Oauth1 plugin is free software: you can redistribute it and/or modify
+// OauthSimple plugin is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
@@ -17,9 +17,8 @@
 /**
  * Oauth1 authentication login
  *
- * @package    auth_oauth1
- * @author     Marco Cappuccio m.cappuccio@mediatouch.it
- * @author     Andrea Bicciolo a.bicciolo@mediatouch.it
+ * @package    auth_oauth_simple
+ * @author     Esdras Caleb Oliveira Silva
  * @copyright  2014 onwards MediaTouch 2000 srl (http://www.mediatouch.it)
  * @copyright  2014 onwards Formez (http://www.formez.it/)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -29,16 +28,16 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->libdir.'/authlib.php');
 
-class auth_plugin_oauth1 extends auth_plugin_base {
+class auth_plugin_oauth_simple extends auth_plugin_base {
 
     /**
      * Constructor with initialisation.
      */
     function auth_plugin_oauth1() {
         $this->authtype = 'oauth1';
-        $this->roleauth = 'auth_oauth1';
-        $this->errorlogtag = '[AUTH OAUTH1] ';
-        $this->config = get_config('auth/oauth1');
+        $this->roleauth = 'auth_oauth_simple';
+        $this->errorlogtag = '[AUTH OAUTH SIMPLE] ';
+        $this->config = get_config('auth/oauth_simple');
     }
 
     /**
@@ -56,7 +55,7 @@ class auth_plugin_oauth1 extends auth_plugin_base {
         $user = $DB->get_record('user', array('username' => $username,
             'mnethostid' => $CFG->mnet_localhost_id));
         // Username must exist and have the right authentication method.
-        if (!empty($user) && ($user->auth == 'oauth1')) {
+        if (!empty($user) && ($user->auth == 'oauth_simple')) {
             $code = optional_param('code', false, PARAM_TEXT);
             if ($code === false) {
                 return false;
@@ -75,8 +74,8 @@ class auth_plugin_oauth1 extends auth_plugin_base {
 
         $authorizationcode = optional_param('code', '', PARAM_TEXT);
         if (!empty($authorizationcode) && 200 == $authorizationcode) {
-            require_once($CFG->dirroot.'/auth/oauth1/lib.php');
-            $cfg = get_config('auth/oauth1');
+            require_once($CFG->dirroot.'/auth/oauth_simple/lib.php');
+            $cfg = get_config('auth/oauth_simple');
             $accesstoken = $SESSION->access_token;
 
             $connection = new TwitterOAuth($cfg->apiurl, $cfg->baseurl, $cfg->consumer_key, $cfg->consumer_secret,
@@ -160,7 +159,7 @@ class auth_plugin_oauth1 extends auth_plugin_base {
                 if (empty($user)) {
                     // Deny login if setting "Prevent account creation when authenticating" is on.
                     if ($CFG->authpreventaccountcreation) {
-                        throw new moodle_exception("noaccountyet", "auth_oauth1");
+                        throw new moodle_exception("noaccountyet", "auth_oauth_simple");
                     }
                     $username = $userinfo->{$cfg->username};
                     create_user_record($username, '', 'oauth1');
@@ -169,7 +168,7 @@ class auth_plugin_oauth1 extends auth_plugin_base {
                 }
                 // Authenticate the user.
                 $userid = empty($user)?'new user':$user->id;
-                add_to_log(SITEID, 'auth_oauth1', '', '', $username . '/' . $userid);
+                add_to_log(SITEID, 'auth_oauth_simple', '', '', $username . '/' . $userid);
                 $user = authenticate_user_login($username, null);
                 if ($user) {
                     // if (!empty($newuser)) {
@@ -182,7 +181,7 @@ class auth_plugin_oauth1 extends auth_plugin_base {
 
                     complete_user_login($user);
                     // Create event for authenticated user.
-                    $event = \auth_oauth1\event\user_loggedin::create(
+                    $event = \auth_oauth_simple\event\user_loggedin::create(
                         array('context' => context_system::instance(),
                             'objectid' => $user->id, 'relateduserid' => $user->id,
                             'other' => array('accesstoken' => $accesstoken)));
@@ -203,7 +202,7 @@ class auth_plugin_oauth1 extends auth_plugin_base {
                    
                 }
             } else {
-                throw new moodle_exception('invalid access', 'auth_oauth1');
+                throw new moodle_exception('invalid access', 'auth_oauth_simple');
             }
             
         } 
@@ -241,11 +240,11 @@ class auth_plugin_oauth1 extends auth_plugin_base {
         }
 
         echo '<table cellspacing="0" cellpadding="5" border="0"><tr><td colspan="3"><h2 class="main">';
-        print_string('auth_oauth1settings', 'auth_oauth1');
+        print_string('auth_oauth_simplesettings', 'auth_oauth_simple');
         echo '</h2></td></tr>';
         // Consumer key.
         echo '<tr><td align="right"><label for="consumer_key">';
-        print_string('auth_consumer_key', 'auth_oauth1');
+        print_string('auth_consumer_key', 'auth_oauth_simple');
         echo '</label></td><td>';
         echo html_writer::empty_tag('input',
             array('type' => 'text', 'id' => 'consumer_key', 'name' => 'consumer_key',
@@ -254,11 +253,11 @@ class auth_plugin_oauth1 extends auth_plugin_base {
             echo $OUTPUT->error_text($err["consumer_key"]);
         }
         echo '</td><td>';
-        print_string('auth_consumer_key_desc', 'auth_oauth1');
+        print_string('auth_consumer_key_desc', 'auth_oauth_simple');
         echo '</td></tr>';
         // Consumer_secret.
         echo '<tr><td align="right"><label for="consumer_secret">';
-        print_string('auth_consumer_secret', 'auth_oauth1');
+        print_string('auth_consumer_secret', 'auth_oauth_simple');
         echo '</label></td><td>';
         echo html_writer::empty_tag('input',
             array('type' => 'text', 'id' => 'consumer_secret', 'name' => 'consumer_secret',
@@ -267,11 +266,11 @@ class auth_plugin_oauth1 extends auth_plugin_base {
             echo $OUTPUT->error_text($err["consumer_secret"]);
         }
         echo '</td><td>';
-        print_string('auth_consumer_secret_desc', 'auth_oauth1');
+        print_string('auth_consumer_secret_desc', 'auth_oauth_simple');
         echo '</td></tr>';
         // URL base.
         echo '<tr><td align="right"><label for="baseurl">';
-        print_string('auth_baseurl', 'auth_oauth1');
+        print_string('auth_baseurl', 'auth_oauth_simple');
         echo '</label></td><td>';
         echo html_writer::empty_tag('input',
             array('type' => 'text', 'id' => 'baseurl', 'name' => 'baseurl',
@@ -281,11 +280,11 @@ class auth_plugin_oauth1 extends auth_plugin_base {
             echo $OUTPUT->error_text($err["baseurl"]);
         }
         echo '</td><td>';
-        print_string('auth_baseurl_desc', 'auth_oauth1');
+        print_string('auth_baseurl_desc', 'auth_oauth_simple');
         echo '</td></tr>';
         // URL Api.
         echo '<tr><td align="right"><label for="apiurl">';
-        print_string('auth_apiurl', 'auth_oauth1');
+        print_string('auth_apiurl', 'auth_oauth_simple');
         echo '</label></td><td>';
         echo html_writer::empty_tag('input',
             array('type' => 'text', 'id' => 'apiurl', 'name' => 'apiurl',
@@ -295,11 +294,11 @@ class auth_plugin_oauth1 extends auth_plugin_base {
             echo $OUTPUT->error_text($err["apiurl"]);
         }
         echo '</td><td>';
-        print_string('auth_apiurl_desc', 'auth_oauth1');
+        print_string('auth_apiurl_desc', 'auth_oauth_simple');
         echo '</td></tr>';
         // Func Api.
         echo '<tr><td align="right"><label for="apifunc">';
-        print_string('auth_apifunc', 'auth_oauth1');
+        print_string('auth_apifunc', 'auth_oauth_simple');
         echo '</label></td><td>';
         echo html_writer::empty_tag('input',
             array('type' => 'text', 'id' => 'apifunc', 'name' => 'apifunc',
@@ -309,7 +308,7 @@ class auth_plugin_oauth1 extends auth_plugin_base {
             echo $OUTPUT->error_text($err["apifunc"]);
         }
         echo '</td><td>';
-        print_string('auth_apifunc_desc', 'auth_oauth1');
+        print_string('auth_apifunc_desc', 'auth_oauth_simple');
         echo '</td></tr>';
         // Username.
         echo '<tr><td align="right"><label for="username">';
@@ -333,7 +332,7 @@ class auth_plugin_oauth1 extends auth_plugin_base {
                 unset($user_fields[$key]);
             }
         } */
-        print_auth_lock_options('oauth1', $user_fields, get_string('auth_fieldlocks_help', 'auth_oauth1'), true, false, $this->get_custom_user_profile_fields());
+        print_auth_lock_options('oauth1', $user_fields, get_string('auth_fieldlocks_help', 'auth_oauth_simple'), true, false, $this->get_custom_user_profile_fields());
         echo '</table>';
     }
 

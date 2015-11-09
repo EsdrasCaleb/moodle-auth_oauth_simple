@@ -1,2 +1,2 @@
-moodle-auth_oauth1
+moodle-auth_oauth_simple
 ==================

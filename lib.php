@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Oauth1 authentication login
+ * OauthSimple authentication login
  *
  * @package    auth_oauth_simple
  * @author     Esdras Caleb Oliveira Silva
@@ -29,16 +29,16 @@ require_once('twitteroauth/twitteroauth.php');
 function auth_oauth_simple_display_buttons() {
     global $CFG;
 
-    $cfg = get_config('auth/oauth1');
+    $cfg = get_config('auth/oauth_simple');
     $connection = new TwitterOAuth($cfg->apiurl, $cfg->baseurl, $cfg->consumer_key,
         $cfg->consumer_secret);
-    echo '<a href="'.$CFG->wwwroot.'/auth/oauth1/redirect.php"><img src="'.
-    $CFG->wwwroot.'/auth/oauth1/pix/oauth.png" alt="Accedi a Formez"/></a>';
+    echo '<a href="'.$CFG->wwwroot.'/auth/oauth_simple/redirect.php"><img src="'.
+    $CFG->wwwroot.'/auth/oauth_simple/pix/oauth.png" alt="Accedi a Formez"/></a>';
 }
 
 function auth_oauth_simple_callbackurl() {
     global $CFG;
-    return $CFG->wwwroot.'/auth/oauth1/callback.php';
+    return $CFG->wwwroot.'/auth/oauth_simple/callback.php';
 }
 
 function stampahtml($content, $ctrl) {
@@ -49,7 +49,7 @@ function clearsessions() {
     session_start();
     session_destroy();
 
-    if (get_config('auth/oauth1', 'consumer_key') === '' || get_config('auth/oauth1', 'consumer_secret') === '') {
+    if (get_config('auth/oauth_simple', 'consumer_key') === '' || get_config('auth/oauth_simple', 'consumer_secret') === '') {
         echo 'You need a consumer key and secret.';
         exit;
     }

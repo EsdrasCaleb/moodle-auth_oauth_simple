@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Oauth1 authentication login
+ * OauthSimple authentication login
  *
  * @package    auth_oauth_simple
  * @author     Esdras Caleb Oliveira Silva

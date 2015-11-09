@@ -1,5 +1,5 @@
 <?php
-// This file is part of OauthSimple plugin for Moodle (http://moodle.org/) based in Oauth1 plugin of Marco Cappuccio and    Andrea Bicciolo 
+// This file is part of OauthSimple plugin for Moodle (http://moodle.org/) based in oauth_simple plugin of Marco Cappuccio and    Andrea Bicciolo 
 //
 // OauthSimple plugin is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Oauth1 authentication login
+ * OauthSimple authentication login
  *
  * @package    auth_oauth_simple
  * @author     Esdras Caleb Oliveira Silva
@@ -27,7 +27,7 @@
 require('../../config.php');
 require_once('lib.php');
 global $SESSION;
-$cfg = get_config('auth/oauth1');
+$cfg = get_config('auth/oauth_simple');
 
 if (isset($_REQUEST['oauth_token']) && $SESSION->oauth_token !== $_REQUEST['oauth_token']) {
     clearsessions();
@@ -44,5 +44,5 @@ $loginurl = '/login/index.php';
 if (!empty($CFG->alternateloginurl)) {
     $loginurl = $CFG->alternateloginurl;
 }
-$url = new moodle_url($loginurl, array('code' => $code, 'authprovider' => 'oauth1'));
+$url = new moodle_url($loginurl, array('code' => $code, 'authprovider' => 'oauth_simple'));
 redirect($url);

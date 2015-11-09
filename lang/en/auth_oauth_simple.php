@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Oauth1 authentication login
+ * OauthSimple authentication login
  *
  * @package    auth_oauth_simple
  * @author     Esdras Caleb Oliveira Silva
@@ -31,16 +31,16 @@ $string['auth_apiurl'] = 'URL API';
 $string['auth_apiurl_desc'] = 'Chamadas de API do endereço.';
 $string['auth_baseurl'] = 'URL Provider';
 $string['auth_baseurl_desc'] = 'Endereço de base do provedor..
-<br>Callback URL: '.$CFG->wwwroot.'/auth/oauth1/callback.php';
+<br>Callback URL: '.$CFG->wwwroot.'/auth/oauth_simple/callback.php';
 $string['auth_consumer_key'] = 'Consumer Key';
 $string['auth_consumer_key_desc'] = 'Chave de autorização consumer_key';
 $string['auth_consumer_secret'] = 'Consumer Secret';
 $string['auth_consumer_secret_desc'] = 'Chave de autorização consumer_secret';
-$string['auth_fieldlocks_help'] = 'Esses campos são opcionais. E pode optar por preencher alguns campos de usuário Moodle com dados dos campos OAUTH1.<br><br>
+$string['auth_fieldlocks_help'] = 'Esses campos são opcionais. E pode optar por preencher alguns campos de usuário Moodle com dados dos campos OAUTH.<br><br>
 <b>Atualizar dados interno</b>: Se ativado, impedir que os usuários e administradores para alterar o campo diretamente para o Moodle.<br><br>
 <b>Bloqueia Valor</b>: Se abilitato, impedirà agli utenti e agli amministratori di Moodle di modificare il campo direttamente.';
-$string['auth_oauth_simple_description'] = 'Permite que o usuário se conectar ao site através de um serviço externo (oauth1).
+$string['auth_oauth_simpledescription'] = 'Permite que o usuário se conectar ao site através de um serviço externo (oauth_simple).
 A primeira vez que você entra, você criar uma nova conta.
 <br>Opção <a href="'.$CFG->wwwroot.'/admin/search.php?query=authpreventaccountcreation">Evite criar contas no momento da autenticação</a> <b>não deve</b> ser ativo.';
-$string['auth_oauth_simple_settings'] = 'Settings';
+$string['auth_oauth_simplesettings'] = 'Settings';
 

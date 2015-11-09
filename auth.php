@@ -1,5 +1,5 @@
 <?php
-// This file is part of OauthSimple plugin for Moodle (http://moodle.org/) based in Oauth1 plugin of Marco Cappuccio and    Andrea Bicciolo 
+// This file is part of OauthSimple plugin for Moodle (http://moodle.org/) based in oauth_simple plugin of Marco Cappuccio and    Andrea Bicciolo 
 //
 // OauthSimple plugin is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Oauth1 authentication login
+ * oauth_simple authentication login 
  *
  * @package    auth_oauth_simple
  * @author     Esdras Caleb Oliveira Silva
@@ -33,8 +33,8 @@ class auth_plugin_oauth_simple extends auth_plugin_base {
     /**
      * Constructor with initialisation.
      */
-    function auth_plugin_oauth1() {
-        $this->authtype = 'oauth1';
+    function auth_plugin_oauth_simple() {
+        $this->authtype = 'oauth_simple';
         $this->roleauth = 'auth_oauth_simple';
         $this->errorlogtag = '[AUTH OAUTH SIMPLE] ';
         $this->config = get_config('auth/oauth_simple');
@@ -145,8 +145,8 @@ class auth_plugin_oauth_simple extends auth_plugin_base {
 
         $authorizationcode = optional_param('code', '', PARAM_TEXT);
         if (!empty($authorizationcode) && 200 == $authorizationcode) {
-            require_once($CFG->dirroot.'/auth/oauth1/lib.php');
-            $cfg = get_config('auth/oauth1');
+            require_once($CFG->dirroot.'/auth/oauth_simple/lib.php');
+            $cfg = get_config('auth/oauth_simple');
             $accesstoken = $SESSION->access_token;
             $connection = new TwitterOAuth($cfg->apiurl, $cfg->baseurl, $cfg->consumer_key, $cfg->consumer_secret,
                 $accesstoken['oauth_token'], $accesstoken['oauth_token_secret']);
@@ -162,7 +162,7 @@ class auth_plugin_oauth_simple extends auth_plugin_base {
                         throw new moodle_exception("noaccountyet", "auth_oauth_simple");
                     }
                     $username = $userinfo->{$cfg->username};
-                    create_user_record($username, '', 'oauth1');
+                    create_user_record($username, '', 'oauth_simple');
                 } else {
                     $username = $user->username;
                 }
@@ -332,7 +332,7 @@ class auth_plugin_oauth_simple extends auth_plugin_base {
                 unset($user_fields[$key]);
             }
         } */
-        print_auth_lock_options('oauth1', $user_fields, get_string('auth_fieldlocks_help', 'auth_oauth_simple'), true, false, $this->get_custom_user_profile_fields());
+        print_auth_lock_options('oauth_simple', $user_fields, get_string('auth_fieldlocks_help', 'auth_oauth_simple'), true, false, $this->get_custom_user_profile_fields());
         echo '</table>';
     }
 
@@ -360,12 +360,12 @@ class auth_plugin_oauth_simple extends auth_plugin_base {
             $config->username = '';
         }
         // Save settings.
-        set_config('consumer_key', $config->consumer_key, 'auth/oauth1');
-        set_config('consumer_secret', $config->consumer_secret, 'auth/oauth1');
-        set_config('baseurl', $config->baseurl, 'auth/oauth1');
-        set_config('apiurl', $config->apiurl, 'auth/oauth1');
-        set_config('apifunc', $config->apifunc, 'auth/oauth1');
-        set_config('username', $config->username, 'auth/oauth1');
+        set_config('consumer_key', $config->consumer_key, 'auth/oauth_simple');
+        set_config('consumer_secret', $config->consumer_secret, 'auth/oauth_simple');
+        set_config('baseurl', $config->baseurl, 'auth/oauth_simple');
+        set_config('apiurl', $config->apiurl, 'auth/oauth_simple');
+        set_config('apifunc', $config->apifunc, 'auth/oauth_simple');
+        set_config('username', $config->username, 'auth/oauth_simple');
 
         return true;
     }

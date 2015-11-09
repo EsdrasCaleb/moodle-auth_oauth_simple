@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Oauth1 authentication login
+ * OauthSimple authentication login
  *
  * @package    auth_oauth_simple
  * @author     Esdras Caleb Oliveira Silva
@@ -26,6 +26,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version  = 2014021900;
+$plugin->version  = 2014021904;
 $plugin->requires = 2013102500;
 $plugin->component = 'auth_oauth_simple';

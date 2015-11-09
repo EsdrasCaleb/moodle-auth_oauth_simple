@@ -1,7 +1,7 @@
 <?php
-// This file is part of Oauth1 plugin for Moodle (http://moodle.org/)
+// This file is part of OauthSimple plugin for Moodle (http://moodle.org/) based in Oauth1 plugin of Marco Cappuccio and    Andrea Bicciolo 
 //
-// Oauth1 plugin is free software: you can redistribute it and/or modify
+// OauthSimple plugin is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
@@ -17,15 +17,14 @@
 /**
  * Oauth1 authentication login
  *
- * @package    auth_oauth1
- * @author     Marco Cappuccio m.cappuccio@mediatouch.it
- * @author     Andrea Bicciolo a.bicciolo@mediatouch.it
+ * @package    auth_oauth_simple
+ * @author     Esdras Caleb Oliveira Silva
  * @copyright  2014 onwards MediaTouch 2000 srl (http://www.mediatouch.it)
  * @copyright  2014 onwards Formez (http://www.formez.it/)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace auth_oauth1\event;
+namespace auth_oauth_simple\event;
 defined('MOODLE_INTERNAL') || die();
 
 class user_loggedin extends \core\event\base {
@@ -36,7 +35,7 @@ class user_loggedin extends \core\event\base {
      * @return string
      */
     public function get_description() {
-        return "The user $this->relateduserid has sent logged in with Oauth1.";
+        return "The user $this->relateduserid has sent logged in with OauthSimple.";
     }
 
     /**
@@ -45,7 +44,7 @@ class user_loggedin extends \core\event\base {
      * @return string
      */
     public static function get_name() {
-        return get_string('event_user_loggedin', 'auth_oauth1');
+        return get_string('event_user_loggedin', 'auth_oauth_simple');
     }
 
     /**

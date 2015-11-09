@@ -1,5 +1,5 @@
 <?php
-// This file is part of Oauth1 plugin for Moodle (http://moodle.org/)
+// This file is part of OauthSimple plugin for Moodle (http://moodle.org/) based in Oauth1 plugin of Marco Cappuccio and    Andrea Bicciolo 
 //
 // Oauth1 plugin is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -29,4 +29,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->version  = 2014021900;
 $plugin->requires = 2013102500;
-$plugin->component = 'auth_oauth1';
+$plugin->component = 'auth_oauth_simple';

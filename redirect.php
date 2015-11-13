@@ -29,8 +29,14 @@ require_once('lib.php');
 global $SESSION;
 $cfg = get_config('auth/oauth_simple');
 
+
 $connection = new TwitterOAuth($cfg->apiurl, $cfg->baseurl, $cfg->consumer_key, $cfg->consumer_secret);
-$requesttoken = $connection->getRequestToken($CFG->wwwroot.'/auth/oauth1/callback.php');
+
+$url = new moodle_url($cfg->baseurl.'oauth/authorizeresponse_type=code&client_id='.);
+/*
+$connection = new TwitterOAuth($cfg->apiurl, $cfg->baseurl, $cfg->consumer_key, $cfg->consumer_secret);
+
+$requesttoken = $connection->getXAuthToken();
 
 
 $SESSION->oauth_token = $token = $requesttoken['oauth_token'];
@@ -43,3 +49,4 @@ switch ($connection->http_code) {
     default:
         echo 'Could not connect. Refresh the page or try again later.';
 }
+*/

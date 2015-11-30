@@ -387,5 +387,16 @@ class auth_plugin_oauth_simple extends auth_plugin_base {
             return true;
         }
     }
+    
+    
+    /**
+     * TODO chamar pagina para delogar
+     *
+     */
+    function prelogout_hook() {
+    	global $CFG, $USER, $DB;
+    
+    	
+    }
 
 }
